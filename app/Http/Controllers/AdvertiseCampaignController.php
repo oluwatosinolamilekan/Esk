@@ -25,14 +25,18 @@ class AdvertiseCampaignController extends Controller
             $campaign = (new CreateCampaign())->run($request);
             return new CampaignResource($campaign);
         }catch (Exception $exception){
-            return response()->json($exception->getMessage());
+            return response()->json('error',$exception->getMessage());
         }
     }
 
-    public function show($id): CampaignResource
+    public function show($id)
     {
-        $campaigns = (new ShowCampaign())->run($id);
-        return new CampaignResource($campaigns);
+        try {
+            $campaign = (new ShowCampaign())->run($id);
+            return new CampaignResource($campaign);
+        }catch (Exception $exception){
+            return response()->json('error',$exception->getMessage());
+        }
     }
 
     public function edit(Request $request,$id)
@@ -41,7 +45,7 @@ class AdvertiseCampaignController extends Controller
             $campaigns = (new EditCampaign())->run($request,$id);
             return new CampaignResource($campaigns);
         }catch (Exception $exception){
-            return response()->json($exception->getMessage());
+            return response()->json('error',$exception->getMessage());
         }
     }
 

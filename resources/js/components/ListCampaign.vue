@@ -17,6 +17,7 @@
                             <th>Date</th>
                             <th>Total Budget</th>
                             <th>Daily Budget</th>
+                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -26,6 +27,9 @@
                             <td>{{ campaign.date }}</td>
                             <td>{{ campaign.total_budget }}</td>
                             <td>{{campaign.daily_budget}}</td>
+                            <td>
+                                <router-link :to="{name: 'edit', params: { id: campaign.id }}" class="btn btn-secondary">Edit</router-link>
+                            </td>
                         </tr>
                         </tbody>
                     </table>

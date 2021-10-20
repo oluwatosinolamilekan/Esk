@@ -12,8 +12,8 @@ class ShowCampaign
     public function run($id)
     {
         $campaign = AdvertiseCampaign::find($id);
-        if(!$campaign){
-            throw new ModelNotFoundException($campaign, "The requested campaign doesn't exists");
+        if($campaign  == null){
+            throw new \Exception("The requested campaign doesn't exists");
         }
         return $campaign;
     }

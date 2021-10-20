@@ -17,7 +17,7 @@
                                 <div class="mb-5">
                                     <label class="text-dark font-weight-medium">Name</label>
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" v-model="name" />
+                                        <input type="text" class="form-control" v-model="campaign.name" />
                                     </div>
                                 </div>
                             </div>
@@ -27,11 +27,11 @@
                                     <div class="d-flex">
                                         <div class="d-flex flex-column">
                                             <div>From:</div>
-                                            <input type="date" class="form-control" :min="getCurrentDate" v-model="from_date">
+                                            <input type="date" class="form-control" :min="getCurrentDate" v-model="campaign.from_date">
                                         </div>
                                         <div class="d-flex flex-column">
                                             <div>To:</div>
-                                            <input type="date" class="form-control" :min="from_date" v-model="to_date">
+                                            <input type="date" class="form-control" :min="campaign.rom_date" v-model="campaign.to_date">
                                         </div>
                                     </div>
                                 </div>
@@ -41,7 +41,7 @@
                                 <div class="mb-5">
                                     <label class="text-dark font-weight-medium">Total Budget</label>
                                     <div class="input-group mb-3">
-                                        <input type="number" class="form-control"  v-model="total_budget">
+                                        <input type="number" class="form-control"  v-model="campaign.otal_budget">
                                     </div>
                                 </div>
                             </div>
@@ -49,7 +49,7 @@
                                 <div class="mb-5">
                                     <label class="text-dark font-weight-medium">Daily Budget</label>
                                     <div class="input-group mb-3">
-                                        <input type="number" class="form-control" v-model="daily_budget">
+                                        <input type="number" class="form-control" v-model="campaign.daily_budget">
                                     </div>
                                 </div>
                             </div>
@@ -57,7 +57,7 @@
                                 <div class="mb-5">
                                     <label class="text-dark font-weight-medium">Image</label>
                                     <div class="input-group mb-3">
-                                        <input type="file" name="image" class="form-control" @change="onChangeFile">
+<!--                                        <input type="file" name="image" class="form-control" @change="onChangeFile">-->
                                     </div>
                                 </div>
                             </div>
@@ -71,8 +71,34 @@
 </template>
 
 <script>
+import moment from 'moment';
 export default {
-    name: "EditCampaign"
+    name: "EditCampaign",
+    data(){
+        return{
+            campaign: []
+        }
+    },
+    computed: {
+        getCurrentDate() {
+            const date = new Date();
+            return moment(date, 'YYYY-MM-DD').format('YYYY-MM-DD');
+        }
+    },
+    created() {
+        axios.get(`api/advertise/show/${this.$route.params.id}`)
+            .then((response) => {
+                this.campaign = response.data;
+            });
+    },
+    methods: {
+        updateCampaign(){
+            axios.patch(`api/advertise/update/${this.$route.params.id}`,this.campaign)
+                .then((response) => {
+                    this.$router.push({ name: 'home' });
+                })
+        }
+    }
 }
 </script>
 

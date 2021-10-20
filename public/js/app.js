@@ -2159,8 +2159,45 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    onChangeFile: function onChangeFile(event) {
+    onFileChange: function onFileChange(event) {
+      /*
+      Set the local file variable to what the user has selected.
+      */
       this.image = event.target.files[0];
+      /*
+      Initialize a File Reader object
+      */
+
+      var reader = new FileReader();
+      /*
+      Add an event listener to the reader that when the file
+      has been loaded, we flag the show preview as true and set the
+      image to be what was read from the reader.
+      */
+
+      reader.addEventListener("load", function () {
+        this.showPreview = true;
+        this.imagePreview = reader.result;
+      }.bind(this), false);
+      /*
+      Check to see if the file is not empty.
+      */
+
+      if (this.image) {
+        /*
+            Ensure the file is an image file.
+        */
+        if (/\.(jpe?g|png|gif)$/i.test(this.image.name)) {
+          console.log("here");
+          /*
+          Fire the readAsDataURL method which will read the file in and
+          upon completion fire a 'load' event which we will listen to and
+          display the image in the preview.
+          */
+
+          reader.readAsDataURL(this.image);
+        }
+      }
     },
     addCampaign: function addCampaign() {
       var _this = this;
@@ -2178,6 +2215,127 @@ __webpack_require__.r(__webpack_exports__);
         });
       })["catch"](function (err) {
         return console.log(err);
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EditCampaign.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EditCampaign.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "EditCampaign",
+  data: function data() {
+    return {
+      campaign: []
+    };
+  },
+  computed: {
+    getCurrentDate: function getCurrentDate() {
+      var date = new Date();
+      return moment__WEBPACK_IMPORTED_MODULE_0___default()(date, 'YYYY-MM-DD').format('YYYY-MM-DD');
+    }
+  },
+  created: function created() {
+    var _this = this;
+
+    axios.get("api/advertise/show/".concat(this.$route.params.id)).then(function (response) {
+      _this.campaign = response.data;
+    });
+  },
+  methods: {
+    updateCampaign: function updateCampaign() {
+      var _this2 = this;
+
+      axios.patch("api/advertise/update/".concat(this.$route.params.id), this.campaign).then(function (response) {
+        _this2.$router.push({
+          name: 'home'
+        });
       });
     }
   }
@@ -2231,6 +2389,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
 //
 //
 //
@@ -2398,6 +2560,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _components_ListCampaign__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/ListCampaign */ "./resources/js/components/ListCampaign.vue");
 /* harmony import */ var _components_CreateCampaign__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/CreateCampaign */ "./resources/js/components/CreateCampaign.vue");
+/* harmony import */ var _components_EditCampaign__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/EditCampaign */ "./resources/js/components/EditCampaign.vue");
+
 
 
 var routes = [{
@@ -2408,6 +2572,10 @@ var routes = [{
   name: 'create',
   path: '/create',
   component: _components_CreateCampaign__WEBPACK_IMPORTED_MODULE_1__["default"]
+}, {
+  name: 'edit',
+  path: '/edit/:id',
+  component: _components_EditCampaign__WEBPACK_IMPORTED_MODULE_2__["default"]
 }];
 
 /***/ }),
@@ -59268,6 +59436,45 @@ component.options.__file = "resources/js/components/CreateCampaign.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/EditCampaign.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/components/EditCampaign.vue ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _EditCampaign_vue_vue_type_template_id_4e797025_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditCampaign.vue?vue&type=template&id=4e797025&scoped=true& */ "./resources/js/components/EditCampaign.vue?vue&type=template&id=4e797025&scoped=true&");
+/* harmony import */ var _EditCampaign_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EditCampaign.vue?vue&type=script&lang=js& */ "./resources/js/components/EditCampaign.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _EditCampaign_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _EditCampaign_vue_vue_type_template_id_4e797025_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _EditCampaign_vue_vue_type_template_id_4e797025_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "4e797025",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/EditCampaign.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/ExampleComponent.vue":
 /*!******************************************************!*\
   !*** ./resources/js/components/ExampleComponent.vue ***!
@@ -59362,6 +59569,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/EditCampaign.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/EditCampaign.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditCampaign_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./EditCampaign.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EditCampaign.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditCampaign_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************!*\
   !*** ./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js& ***!
@@ -59407,6 +59630,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateCampaign_vue_vue_type_template_id_b0b48152_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateCampaign_vue_vue_type_template_id_b0b48152_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./CreateCampaign.vue?vue&type=template&id=b0b48152&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/CreateCampaign.vue?vue&type=template&id=b0b48152&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/EditCampaign.vue?vue&type=template&id=4e797025&scoped=true&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/components/EditCampaign.vue?vue&type=template&id=4e797025&scoped=true& ***!
+  \*********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditCampaign_vue_vue_type_template_id_4e797025_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditCampaign_vue_vue_type_template_id_4e797025_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditCampaign_vue_vue_type_template_id_4e797025_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./EditCampaign.vue?vue&type=template&id=4e797025&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EditCampaign.vue?vue&type=template&id=4e797025&scoped=true&");
 
 
 /***/ }),
@@ -59702,6 +59942,282 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EditCampaign.vue?vue&type=template&id=4e797025&scoped=true&":
+/*!************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EditCampaign.vue?vue&type=template&id=4e797025&scoped=true& ***!
+  \************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-12" }, [
+      _c("div", { staticClass: "card card-default" }, [
+        _c("div", { staticClass: "card-header" }, [
+          _c("h2", [_vm._v("Create campaign")]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "align-items-center px-3 px-md-5" },
+            [
+              _c(
+                "router-link",
+                { staticClass: "btn btn-primary", attrs: { to: "/" } },
+                [
+                  _vm._v(
+                    "\n                            Back\n                        "
+                  )
+                ]
+              )
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c(
+            "form",
+            {
+              attrs: { action: "", enctype: "multipart/form-data" },
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.addCampaign()
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-xl-6" }, [
+                  _c("div", { staticClass: "mb-5" }, [
+                    _c(
+                      "label",
+                      { staticClass: "text-dark font-weight-medium" },
+                      [_vm._v("Name")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "input-group mb-3" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.campaign.name,
+                            expression: "campaign.name"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.campaign.name },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.campaign, "name", $event.target.value)
+                          }
+                        }
+                      })
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-xl-6" }, [
+                  _c("div", { staticClass: "mb-5" }, [
+                    _c(
+                      "label",
+                      { staticClass: "text-dark font-weight-medium" },
+                      [_vm._v("Date")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "d-flex" }, [
+                      _c("div", { staticClass: "d-flex flex-column" }, [
+                        _c("div", [_vm._v("From:")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.campaign.from_date,
+                              expression: "campaign.from_date"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "date", min: _vm.getCurrentDate },
+                          domProps: { value: _vm.campaign.from_date },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.campaign,
+                                "from_date",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "d-flex flex-column" }, [
+                        _c("div", [_vm._v("To:")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.campaign.to_date,
+                              expression: "campaign.to_date"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "date", min: _vm.campaign.rom_date },
+                          domProps: { value: _vm.campaign.to_date },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.campaign,
+                                "to_date",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-xl-6" }, [
+                  _c("div", { staticClass: "mb-5" }, [
+                    _c(
+                      "label",
+                      { staticClass: "text-dark font-weight-medium" },
+                      [_vm._v("Total Budget")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "input-group mb-3" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.campaign.otal_budget,
+                            expression: "campaign.otal_budget"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "number" },
+                        domProps: { value: _vm.campaign.otal_budget },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.campaign,
+                              "otal_budget",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-xl-6" }, [
+                  _c("div", { staticClass: "mb-5" }, [
+                    _c(
+                      "label",
+                      { staticClass: "text-dark font-weight-medium" },
+                      [_vm._v("Daily Budget")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "input-group mb-3" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.campaign.daily_budget,
+                            expression: "campaign.daily_budget"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "number" },
+                        domProps: { value: _vm.campaign.daily_budget },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.campaign,
+                              "daily_budget",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _vm._m(0)
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary btn-pill mr-2",
+                  attrs: { type: "submit" }
+                },
+                [_vm._v("Submit")]
+              )
+            ]
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-xl-6" }, [
+      _c("div", { staticClass: "mb-5" }, [
+        _c("label", { staticClass: "text-dark font-weight-medium" }, [
+          _vm._v("Image")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "input-group mb-3" })
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&":
 /*!****************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e& ***!
@@ -59809,7 +60325,24 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(campaign.total_budget))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(campaign.daily_budget))])
+                    _c("td", [_vm._v(_vm._s(campaign.daily_budget))]),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "btn btn-secondary",
+                            attrs: {
+                              to: { name: "edit", params: { id: campaign.id } }
+                            }
+                          },
+                          [_vm._v("Edit")]
+                        )
+                      ],
+                      1
+                    )
                   ])
                 }),
                 0
@@ -59836,7 +60369,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Total Budget")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Daily Budget")])
+        _c("th", [_vm._v("Daily Budget")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Action")])
       ])
     ])
   }
