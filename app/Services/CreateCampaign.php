@@ -4,6 +4,7 @@
 namespace App\Services;
 
 
+use App\Helper\File;
 use App\Models\AdvertiseCampaign;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -20,7 +21,7 @@ class CreateCampaign
         $campaign->from_date = Carbon::parse($data['from_date']);
         $campaign->total_budget = $data['total_budget'];
         $campaign->daily_budget = $data['daily_budget'];
-        $campaign->image = $this->storeImage($data);
+        $campaign->image = File::storeImage($data);
         $campaign->save();
         DB::commit();
         return $campaign;

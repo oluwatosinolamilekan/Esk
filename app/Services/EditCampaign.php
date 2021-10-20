@@ -4,6 +4,7 @@
 namespace App\Services;
 
 
+use App\Helper\File;
 use App\Models\AdvertiseCampaign;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
@@ -22,6 +23,7 @@ class EditCampaign
         $campaign->total_budget = $data['total_budget'];
         $campaign->daily_budget = $data['daily_budget'];
         $campaign->save = $data['save'];
+        $campaign->image = File::storeImage($data);
         $campaign->save();
         DB::commit();
         return $campaign;
