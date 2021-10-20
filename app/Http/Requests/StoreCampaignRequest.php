@@ -19,6 +19,7 @@ class StoreCampaignRequest extends FormRequest
             'daily_budget' => 'required',
             'to_date' => 'required',
             'from_date' => 'required',
+            'image' => 'image',
         ];
     }
 }

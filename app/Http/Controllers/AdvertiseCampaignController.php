@@ -25,7 +25,7 @@ class AdvertiseCampaignController extends Controller
             $campaign = (new CreateCampaign())->run($request);
             return new CampaignResource($campaign);
         }catch (Exception $exception){
-            return response()->json($exception);
+            return response()->json($exception->getMessage());
         }
     }
 
@@ -41,7 +41,8 @@ class AdvertiseCampaignController extends Controller
             $campaigns = (new EditCampaign())->run($request,$id);
             return new CampaignResource($campaigns);
         }catch (Exception $exception){
-            return response()->json('error',$exception);
+            return response()->json($exception->getMessage());
         }
     }
+
 }

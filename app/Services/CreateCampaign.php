@@ -20,7 +20,7 @@ class CreateCampaign
         $campaign->from_date = Carbon::parse($data['from_date']);
         $campaign->total_budget = $data['total_budget'];
         $campaign->daily_budget = $data['daily_budget'];
-        $campaign->image = '' ?? $this->storeImage($data);
+        $campaign->image = $this->storeImage($data);
         $campaign->save();
         DB::commit();
         return $campaign;
@@ -29,8 +29,8 @@ class CreateCampaign
     private function storeImage($data): string
     {
         $destinationPath = 'uploads';
-        $imageName = Str::slug($data->image.'-'.time().'.'.$data->extension());
-            $storeImage = $data->image->move(public_path($destinationPath), $imageName);
-        return $imageName;
+        $imageFileName = time().'-'.$data->image->getClientOriginalName();
+        $data->image->move(public_path($destinationPath), $imageFileName);
+        return $imageFileName;
     }
 }
