@@ -34,4 +34,14 @@ class AdvertiseCampaign extends Model
      * @var mixed|string
      */
     private $image;
+
+    public function gettotalBudgetAttribute($value)
+    {
+        return number_format($value,2);
+    }
+
+    public function getdailyBudgetAttribute($value)
+    {
+        return number_format($value,2);
+    }
 }
