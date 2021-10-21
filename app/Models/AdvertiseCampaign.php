@@ -10,6 +10,15 @@ class AdvertiseCampaign extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'from_date',
+        'to_date',
+        'total_budget',
+        'daily_budget',
+    ];
+
+
     /**
      * @var mixed
      */
