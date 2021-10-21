@@ -82,7 +82,7 @@ export default {
                 from_date: '',
                 total_budget: '',
                 daily_budget: '',
-            creative: '',
+                creative: '',
         }
     },
     computed: {

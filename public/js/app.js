@@ -2272,13 +2272,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "EditCampaign",
@@ -2301,20 +2294,10 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
-    onFileChange: function onFileChange(event) {
-      this.campaign.image = event.target.files[0];
-    },
     updateCampaign: function updateCampaign() {
       var _this2 = this;
 
-      var formData = new FormData();
-      formData.append('creative', this.campaign.creative);
-      formData.append('to_date', this.campaign.to_date);
-      formData.append('from_date', this.campaign.from_date);
-      formData.append('total_budget', this.campaign.total_budget);
-      formData.append('daily_budget', this.campaign.daily_budget);
-      formData.append('name', this.campaign.name);
-      axios.patch("http://localhost/api/advertise/update/".concat(this.$route.params.id), formData).then(function (response) {
+      axios.patch("http://localhost/api/advertise/update/".concat(this.$route.params.id), this.campaign).then(function (response) {
         _this2.$router.push({
           name: 'home'
         });
@@ -2372,9 +2355,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _ShowCampaign__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ShowCampaign */ "./resources/js/components/ShowCampaign.vue");
-//
-//
-//
 //
 //
 //
@@ -2493,17 +2473,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ShowCampaign",
-  props: ['campaign'],
-  mounted: function mounted() {
-    var vm = this;
-    Vue.nextTick(function () {
-      console.log(vm.campaign);
-    });
-  }
+  props: ['campaign']
 });
 
 /***/ }),
@@ -60317,27 +60289,6 @@ var render = function() {
                       })
                     ])
                   ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-xl-6" }, [
-                  _c("div", { staticClass: "mb-5" }, [
-                    _c(
-                      "label",
-                      { staticClass: "text-dark font-weight-medium" },
-                      [_vm._v("Preview")]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "input-group mb-3" }, [
-                      _c("img", {
-                        staticClass: "img-fluid rounded",
-                        attrs: {
-                          src: _vm.campaign.image,
-                          width: "100",
-                          height: "50"
-                        }
-                      })
-                    ])
-                  ])
                 ])
               ]),
               _vm._v(" "),
@@ -60462,10 +60413,6 @@ var render = function() {
                 "tbody",
                 _vm._l(_vm.campaigns, function(campaign) {
                   return _c("tr", { key: campaign.id }, [
-                    _c("td", [
-                      _c("img", { attrs: { src: campaign.creative } })
-                    ]),
-                    _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(campaign.name))]),
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(campaign.date))]),
@@ -60542,8 +60489,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("Image")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Name")]),
         _vm._v(" "),
         _c("th", [_vm._v("Date")]),
@@ -60608,13 +60553,6 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "modal-body text-dark" }, [
-            _c("div", { staticClass: "p-2 d-flex text-dark" }, [
-              _c("img", {
-                staticClass: "img-fluid rounded",
-                attrs: { src: _vm.campaign.creative }
-              })
-            ]),
-            _vm._v(" "),
             _c("div", { staticClass: "p-2 d-flex text-dark" }, [
               _c("div", { staticClass: "font-weight-bold mr-2" }, [
                 _vm._v("Name:")

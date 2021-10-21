@@ -10,9 +10,7 @@
                     </button>
                 </div>
                 <div class="modal-body text-dark">
-                    <div class="p-2 d-flex text-dark">
-                        <img v-bind:src="campaign.creative" class="img-fluid rounded" >
-                    </div>
+
                     <div class="p-2 d-flex text-dark">
                         <div class="font-weight-bold mr-2">Name:</div>
                         <div>{{ campaign.name }}</div>
@@ -38,14 +36,7 @@
 <script>
 export default {
     name: "ShowCampaign",
-    props: ['campaign'],
-    mounted() {
-        let vm = this;
-
-        Vue.nextTick(function () {
-            console.log(vm.campaign);
-        });
-    }
+    props: ['campaign']
 }
 </script>
 

@@ -23,7 +23,7 @@ class CampaignResource extends JsonResource
             'date' => $this->to_date. " - " .$this->from_date,
             'total_budget' => $this->total_budget,
             'daily_budget' => $this->daily_budget,
-            'creative' => new CampaignCreativeResource($this->creative),
+//            'creative' => new CampaignCreativeResource($this->creative),
         ];
     }
 }

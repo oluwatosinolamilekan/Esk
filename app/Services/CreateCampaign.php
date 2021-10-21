@@ -23,7 +23,6 @@ class CreateCampaign
         $campaign->from_date = Carbon::parse($data['from_date']);
         $campaign->total_budget = $data['total_budget'];
         $campaign->daily_budget = $data['daily_budget'];
-        $campaign->creative = File::storeImage($data);
         $campaign->save();
         $campaignCreatives = [];
         foreach ($data->file('creatives') as $creative) {

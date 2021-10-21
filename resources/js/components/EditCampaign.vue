@@ -61,14 +61,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-6">
-                                <div class="mb-5">
-                                    <label class="text-dark font-weight-medium">Preview</label>
-                                    <div class="input-group mb-3">
-                                        <img v-bind:src="campaign.image" class="img-fluid rounded"  width="100" height="50">
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                         <button class="btn btn-primary btn-pill mr-2" type="submit">Submit</button>
                     </form>
@@ -100,18 +93,9 @@ export default {
             });
     },
     methods: {
-        onFileChange(event){
-            this.campaign.image = event.target.files[0];
-        },
+
         updateCampaign(){
-            let formData = new FormData();
-            formData.append('creative', this.campaign.creative);
-            formData.append('to_date',this.campaign.to_date)
-            formData.append('from_date',this.campaign.from_date)
-            formData.append('total_budget',this.campaign.total_budget)
-            formData.append('daily_budget',this.campaign.daily_budget)
-            formData.append('name',this.campaign.name)
-            axios.patch(`http://localhost/api/advertise/update/${this.$route.params.id}`,formData)
+            axios.patch(`http://localhost/api/advertise/update/${this.$route.params.id}`,this.campaign)
                 .then((response) => {
                     this.$router.push({ name: 'home' });
                 })

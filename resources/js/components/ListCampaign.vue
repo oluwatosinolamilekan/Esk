@@ -12,7 +12,6 @@
                     <table id="productsTable" class="table table-hover table-product" style="width:100%">
                         <thead>
                         <tr>
-                            <th>Image</th>
                             <th>Name</th>
                             <th>Date</th>
                             <th>Total Budget</th>
@@ -22,9 +21,7 @@
                         </thead>
                         <tbody>
                         <tr  v-for="campaign in campaigns" v-bind:key="campaign.id">
-                            <td>
-                                <img v-bind:src="campaign.creative">
-                            </td>
+
                             <td>{{ campaign.name }}</td>
                             <td>{{ campaign.date }}</td>
                             <td>{{ campaign.total_budget }}</td>
