@@ -49,4 +49,9 @@ class AdvertiseCampaign extends Model
     {
         return $this->hasMany(CampaignCreative::class);
     }
+
+    public function creative()
+    {
+        return $this->hasOne(CampaignCreative::class)->select('img_path');
+    }
 }
