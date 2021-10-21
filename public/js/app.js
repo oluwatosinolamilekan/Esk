@@ -2342,7 +2342,14 @@ __webpack_require__.r(__webpack_exports__);
     updateCampaign: function updateCampaign() {
       var _this2 = this;
 
-      axios.patch("http://localhost/api/advertise/update/".concat(this.$route.params.id), this.campaign).then(function (response) {
+      var formData = new FormData();
+      formData.append('image', this.image);
+      formData.append('to_date', this.to_date);
+      formData.append('from_date', this.from_date);
+      formData.append('total_budget', this.total_budget);
+      formData.append('daily_budget', this.daily_budget);
+      formData.append('name', this.name);
+      axios.patch("http://localhost/api/advertise/update/".concat(this.$route.params.id), formData).then(function (response) {
         _this2.$router.push({
           name: 'home'
         });
@@ -60383,18 +60390,11 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "input-group mb-3" }, [
                       _c("img", {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.showPreview,
-                            expression: "showPreview"
-                          }
-                        ],
+                        staticClass: "img-fluid rounded",
                         attrs: {
-                          src: _vm.imagePreview,
+                          src: _vm.campaign.image,
                           width: "100",
-                          height: "100"
+                          height: "50"
                         }
                       })
                     ])
@@ -60667,7 +60667,12 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "modal-body text-dark" }, [
-            _vm._m(1),
+            _c("div", { staticClass: "p-2 d-flex text-dark" }, [
+              _c("img", {
+                staticClass: "img-fluid rounded",
+                attrs: { src: _vm.campaign.image }
+              })
+            ]),
             _vm._v(" "),
             _c("div", { staticClass: "p-2 d-flex text-dark" }, [
               _c("div", { staticClass: "font-weight-bold mr-2" }, [
@@ -60723,17 +60728,6 @@ var staticRenderFns = [
       },
       [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "p-2 d-flex text-dark" }, [
-      _c("img", {
-        staticClass: "img-fluid rounded",
-        attrs: { src: "", alt: "i" }
-      })
-    ])
   }
 ]
 render._withStripped = true

@@ -23,5 +23,5 @@ Route::prefix('advertise')->group(function () {
     Route::get('/index', [AdvertiseCampaignController::class, 'index']);
     Route::post('/store', [AdvertiseCampaignController::class, 'store']);
     Route::get('/show/{id}', [AdvertiseCampaignController::class, 'show']);
-    Route::post('/edit/{id}', [AdvertiseCampaignController::class, 'edit']);
+    Route::patch('/update/{id}', [AdvertiseCampaignController::class, 'update']);
 });

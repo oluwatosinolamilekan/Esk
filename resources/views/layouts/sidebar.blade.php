@@ -16,10 +16,7 @@
                 <li
                     class="active"
                 >
-                    <a class="sidenav-item-link" href="index-2.html">
-                        <i class="mdi mdi-briefcase-account-outline"></i>
-                        <span class="nav-text">List</span>
-                    </a>
+
                 </li>
 
             </ul>

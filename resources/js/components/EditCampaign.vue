@@ -65,7 +65,7 @@
                                 <div class="mb-5">
                                     <label class="text-dark font-weight-medium">Preview</label>
                                     <div class="input-group mb-3">
-                                        <img v-bind:src="imagePreview" width="100" height="100" v-show="showPreview"/>
+                                        <img v-bind:src="campaign.image" class="img-fluid rounded"  width="100" height="50">
                                     </div>
                                 </div>
                             </div>
@@ -103,7 +103,14 @@ export default {
     },
     methods: {
         updateCampaign(){
-            axios.patch(`http://localhost/api/advertise/update/${this.$route.params.id}`,this.campaign)
+            let formData = new FormData();
+            formData.append('image', this.image);
+            formData.append('to_date',this.to_date)
+            formData.append('from_date',this.from_date)
+            formData.append('total_budget',this.total_budget)
+            formData.append('daily_budget',this.daily_budget)
+            formData.append('name',this.name)
+            axios.patch(`http://localhost/api/advertise/update/${this.$route.params.id}`,formData)
                 .then((response) => {
                     this.$router.push({ name: 'home' });
                 })

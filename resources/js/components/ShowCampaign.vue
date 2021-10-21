@@ -11,7 +11,7 @@
                 </div>
                 <div class="modal-body text-dark">
                     <div class="p-2 d-flex text-dark">
-                        <img src="" alt="i" class="img-fluid rounded" />
+                        <img v-bind:src="campaign.image" class="img-fluid rounded" >
                     </div>
                     <div class="p-2 d-flex text-dark">
                         <div class="font-weight-bold mr-2">Name:</div>

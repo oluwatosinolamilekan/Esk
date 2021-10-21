@@ -40,7 +40,7 @@ class AdvertiseCampaignController extends Controller
         }
     }
 
-    public function edit(Request $request,$id)
+    public function update(Request $request,$id)
     {
         try {
             $campaigns = (new EditCampaign())->run($request,$id);

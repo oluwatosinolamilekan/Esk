@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\File;
 
 class CampaignResource extends JsonResource
 {
@@ -20,9 +21,9 @@ class CampaignResource extends JsonResource
             'from_date' => $this->from_date,
             'to_date' => $this->to_date,
             'date' => $this->to_date. " - " .$this->from_date,
-            'image' => asset('uploads/'.$this->image) ?? asset('up'),
             'total_budget' => $this->total_budget,
             'daily_budget' => $this->daily_budget,
+            'image' => File::exists(public_path('uploads/'.$this->image)) ? asset('uploads/'.$this->image) : asset('uploads/esk.jpeg')
         ];
     }
 }
