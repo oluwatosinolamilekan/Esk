@@ -28,7 +28,7 @@ class AdvertiseCampaignTest extends TestCase
             'to_date' => Carbon::now()->addDays(30),
             'total_budget' => $faker->numberBetween(1000,4555),
             'daily_budget' => $faker->numberBetween(1000,4555),
-            'image' => $faker->image()
+            'creative' => $faker->creative()
         ];
     }
 

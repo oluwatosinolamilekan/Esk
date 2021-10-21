@@ -23,7 +23,7 @@ class EditCampaign
         $campaign->total_budget = $data['total_budget'];
         $campaign->daily_budget = $data['daily_budget'];
         $campaign->save = $data['save'];
-        $campaign->image = File::storeImage($data) ?? $data['image'];
+        $campaign->creative = File::storeImage($data) ?? $data['image'];
         $campaign->save();
         DB::commit();
         return $campaign;

@@ -23,7 +23,7 @@ class CampaignResource extends JsonResource
             'date' => $this->to_date. " - " .$this->from_date,
             'total_budget' => $this->total_budget,
             'daily_budget' => $this->daily_budget,
-            'image' => File::exists(public_path('uploads/'.$this->image)) ? asset('uploads/'.$this->image) : asset('uploads/esk.jpeg')
+            'creative' => File::exists(public_path('uploads/'.$this->creative)) ? asset('uploads/'.$this->creative) : asset('uploads/esk.jpeg')
         ];
     }
 }

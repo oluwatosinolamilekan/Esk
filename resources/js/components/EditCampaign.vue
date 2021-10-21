@@ -105,7 +105,7 @@ export default {
         },
         updateCampaign(){
             let formData = new FormData();
-            formData.append('image', this.campaign.image);
+            formData.append('creative', this.campaign.creative);
             formData.append('to_date',this.campaign.to_date)
             formData.append('from_date',this.campaign.from_date)
             formData.append('total_budget',this.campaign.total_budget)

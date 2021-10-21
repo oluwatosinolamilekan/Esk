@@ -2149,7 +2149,7 @@ __webpack_require__.r(__webpack_exports__);
       from_date: '',
       total_budget: '',
       daily_budget: '',
-      image: ''
+      creative: ''
     };
   },
   computed: {
@@ -2167,7 +2167,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var formData = new FormData();
-      formData.append('image', this.image);
+      formData.append('creative', this.creative);
       formData.append('to_date', this.to_date);
       formData.append('from_date', this.from_date);
       formData.append('total_budget', this.total_budget);
@@ -2308,7 +2308,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       var formData = new FormData();
-      formData.append('image', this.campaign.image);
+      formData.append('creative', this.campaign.creative);
       formData.append('to_date', this.campaign.to_date);
       formData.append('from_date', this.campaign.from_date);
       formData.append('total_budget', this.campaign.total_budget);
@@ -60462,7 +60462,9 @@ var render = function() {
                 "tbody",
                 _vm._l(_vm.campaigns, function(campaign) {
                   return _c("tr", { key: campaign.id }, [
-                    _c("td", [_c("img", { attrs: { src: campaign.image } })]),
+                    _c("td", [
+                      _c("img", { attrs: { src: campaign.creative } })
+                    ]),
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(campaign.name))]),
                     _vm._v(" "),
@@ -60609,7 +60611,7 @@ var render = function() {
             _c("div", { staticClass: "p-2 d-flex text-dark" }, [
               _c("img", {
                 staticClass: "img-fluid rounded",
-                attrs: { src: _vm.campaign.image }
+                attrs: { src: _vm.campaign.creative }
               })
             ]),
             _vm._v(" "),

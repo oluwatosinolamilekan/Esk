@@ -82,7 +82,7 @@ export default {
                 from_date: '',
                 total_budget: '',
                 daily_budget: '',
-                image: '',
+            creative: '',
         }
     },
     computed: {
@@ -98,7 +98,7 @@ export default {
         },
         addCampaign(){
             let formData = new FormData();
-            formData.append('image', this.image);
+            formData.append('creative', this.creative);
             formData.append('to_date',this.to_date)
             formData.append('from_date',this.from_date)
             formData.append('total_budget',this.total_budget)
