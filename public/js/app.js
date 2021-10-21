@@ -2312,7 +2312,7 @@ __webpack_require__.r(__webpack_exports__);
   name: "EditCampaign",
   data: function data() {
     return {
-      campaign: []
+      campaign: {}
     };
   },
   computed: {
@@ -2389,6 +2389,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
 //
 //
 //
@@ -60330,6 +60331,10 @@ var render = function() {
                     _c(
                       "td",
                       [
+                        _c("button", { staticClass: "btn btn-primary" }, [
+                          _vm._v("Show")
+                        ]),
+                        _vm._v(" "),
                         _c(
                           "router-link",
                           {

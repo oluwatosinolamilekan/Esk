@@ -76,7 +76,7 @@ export default {
     name: "EditCampaign",
     data(){
         return{
-            campaign: []
+            campaign: {}
         }
     },
     computed: {

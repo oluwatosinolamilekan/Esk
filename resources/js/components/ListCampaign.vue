@@ -28,6 +28,7 @@
                             <td>{{ campaign.total_budget }}</td>
                             <td>{{campaign.daily_budget}}</td>
                             <td>
+                                <button class="btn btn-primary">Show</button>
                                 <router-link :to="{name: 'edit', params: { id: campaign.id }}" class="btn btn-secondary">Edit</router-link>
                             </td>
                         </tr>
