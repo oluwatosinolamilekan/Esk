@@ -11,7 +11,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action=""  enctype="multipart/form-data">
+                    <form action=""  @submit.prevent="updateCampaign()" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-xl-6">
                                 <div class="mb-5">
@@ -85,8 +85,6 @@ export default {
     data(){
         return{
             campaign: {},
-            imagePreview: null,
-            showPreview: false,
         }
     },
     computed: {
@@ -102,58 +100,21 @@ export default {
             });
     },
     methods: {
+        onFileChange(event){
+            this.campaign.image = event.target.files[0];
+        },
         updateCampaign(){
             let formData = new FormData();
-            formData.append('image', this.image);
-            formData.append('to_date',this.to_date)
-            formData.append('from_date',this.from_date)
-            formData.append('total_budget',this.total_budget)
-            formData.append('daily_budget',this.daily_budget)
-            formData.append('name',this.name)
+            formData.append('image', this.campaign.image);
+            formData.append('to_date',this.campaign.to_date)
+            formData.append('from_date',this.campaign.from_date)
+            formData.append('total_budget',this.campaign.total_budget)
+            formData.append('daily_budget',this.campaign.daily_budget)
+            formData.append('name',this.campaign.name)
             axios.patch(`http://localhost/api/advertise/update/${this.$route.params.id}`,formData)
                 .then((response) => {
                     this.$router.push({ name: 'home' });
                 })
-        },
-        onFileChange(event){
-            /*
-            Set the local file variable to what the user has selected.
-            */
-            this.campaign.image = event.target.files[0];
-
-            /*
-            Initialize a File Reader object
-            */
-            let reader  = new FileReader();
-
-            /*
-            Add an event listener to the reader that when the file
-            has been loaded, we flag the show preview as true and set the
-            image to be what was read from the reader.
-            */
-            reader.addEventListener("load", function () {
-                this.showPreview = true;
-                this.imagePreview = reader.result;
-            }.bind(this), false);
-
-            /*
-            Check to see if the file is not empty.
-            */
-            if( this.campaign.campaign ){
-                /*
-                    Ensure the file is an image file.
-                */
-                if ( /\.(jpe?g|png|gif)$/i.test( this.campaign.campaign ) ) {
-
-                    console.log("here");
-                    /*
-                    Fire the readAsDataURL method which will read the file in and
-                    upon completion fire a 'load' event which we will listen to and
-                    display the image in the preview.
-                    */
-                    reader.readAsDataURL( this.campaign.image );
-                }
-            }
         }
     }
 }

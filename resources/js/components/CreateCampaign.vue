@@ -57,7 +57,7 @@
                                 <div class="mb-5">
                                     <label class="text-dark font-weight-medium">Image</label>
                                     <div class="input-group mb-3">
-                                        <input type="file" name="image" class="form-control" @change="onChangeFile">
+                                        <input type="file" name="image" class="form-control" @change="onFileChange">
                                     </div>
                                 </div>
                             </div>
@@ -93,44 +93,8 @@ export default {
     },
     methods:{
         onFileChange(event){
-            /*
-            Set the local file variable to what the user has selected.
-            */
+            console.log(event.target.files[0])
             this.image = event.target.files[0];
-
-            /*
-            Initialize a File Reader object
-            */
-            let reader  = new FileReader();
-
-            /*
-            Add an event listener to the reader that when the file
-            has been loaded, we flag the show preview as true and set the
-            image to be what was read from the reader.
-            */
-            reader.addEventListener("load", function () {
-                this.showPreview = true;
-                this.imagePreview = reader.result;
-            }.bind(this), false);
-
-            /*
-            Check to see if the file is not empty.
-            */
-            if( this.image ){
-                /*
-                    Ensure the file is an image file.
-                */
-                if ( /\.(jpe?g|png|gif)$/i.test( this.image.name ) ) {
-
-                    console.log("here");
-                    /*
-                    Fire the readAsDataURL method which will read the file in and
-                    upon completion fire a 'load' event which we will listen to and
-                    display the image in the preview.
-                    */
-                    reader.readAsDataURL( this.image );
-                }
-            }
         },
         addCampaign(){
             let formData = new FormData();

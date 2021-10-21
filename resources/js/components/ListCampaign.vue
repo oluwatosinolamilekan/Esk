@@ -30,7 +30,7 @@
                             <td>{{ campaign.total_budget }}</td>
                             <td>{{campaign.daily_budget}}</td>
                             <td>
-                                <button type="button" class="btn btn-info btn-pill" data-toggle="modal" data-target="#exampleModal" :campaign="campaign" @click="showModal = true">
+                                <button type="button" class="btn btn-info btn-pill" data-toggle="modal" data-target="#exampleModal" :campaign="campaign" @click="showModal= true">
                                     Show
                                 </button>
                                 <show-campaign v-if="showModal" @close="showModal = false" :campaign="campaign"></show-campaign>
@@ -64,7 +64,7 @@ export default {
                 .then((response) => {
                     this.campaigns = response.data.data
                 })
-        }
+        },
     },
     created(){
         this.getCampaings();

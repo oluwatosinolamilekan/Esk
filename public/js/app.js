@@ -2160,44 +2160,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     onFileChange: function onFileChange(event) {
-      /*
-      Set the local file variable to what the user has selected.
-      */
+      console.log(event.target.files[0]);
       this.image = event.target.files[0];
-      /*
-      Initialize a File Reader object
-      */
-
-      var reader = new FileReader();
-      /*
-      Add an event listener to the reader that when the file
-      has been loaded, we flag the show preview as true and set the
-      image to be what was read from the reader.
-      */
-
-      reader.addEventListener("load", function () {
-        this.showPreview = true;
-        this.imagePreview = reader.result;
-      }.bind(this), false);
-      /*
-      Check to see if the file is not empty.
-      */
-
-      if (this.image) {
-        /*
-            Ensure the file is an image file.
-        */
-        if (/\.(jpe?g|png|gif)$/i.test(this.image.name)) {
-          console.log("here");
-          /*
-          Fire the readAsDataURL method which will read the file in and
-          upon completion fire a 'load' event which we will listen to and
-          display the image in the preview.
-          */
-
-          reader.readAsDataURL(this.image);
-        }
-      }
     },
     addCampaign: function addCampaign() {
       var _this = this;
@@ -2320,9 +2284,7 @@ __webpack_require__.r(__webpack_exports__);
   name: "EditCampaign",
   data: function data() {
     return {
-      campaign: {},
-      imagePreview: null,
-      showPreview: false
+      campaign: {}
     };
   },
   computed: {
@@ -2339,61 +2301,24 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
+    onFileChange: function onFileChange(event) {
+      this.campaign.image = event.target.files[0];
+    },
     updateCampaign: function updateCampaign() {
       var _this2 = this;
 
       var formData = new FormData();
-      formData.append('image', this.image);
-      formData.append('to_date', this.to_date);
-      formData.append('from_date', this.from_date);
-      formData.append('total_budget', this.total_budget);
-      formData.append('daily_budget', this.daily_budget);
-      formData.append('name', this.name);
+      formData.append('image', this.campaign.image);
+      formData.append('to_date', this.campaign.to_date);
+      formData.append('from_date', this.campaign.from_date);
+      formData.append('total_budget', this.campaign.total_budget);
+      formData.append('daily_budget', this.campaign.daily_budget);
+      formData.append('name', this.campaign.name);
       axios.patch("http://localhost/api/advertise/update/".concat(this.$route.params.id), formData).then(function (response) {
         _this2.$router.push({
           name: 'home'
         });
       });
-    },
-    onFileChange: function onFileChange(event) {
-      /*
-      Set the local file variable to what the user has selected.
-      */
-      this.campaign.image = event.target.files[0];
-      /*
-      Initialize a File Reader object
-      */
-
-      var reader = new FileReader();
-      /*
-      Add an event listener to the reader that when the file
-      has been loaded, we flag the show preview as true and set the
-      image to be what was read from the reader.
-      */
-
-      reader.addEventListener("load", function () {
-        this.showPreview = true;
-        this.imagePreview = reader.result;
-      }.bind(this), false);
-      /*
-      Check to see if the file is not empty.
-      */
-
-      if (this.campaign.campaign) {
-        /*
-            Ensure the file is an image file.
-        */
-        if (/\.(jpe?g|png|gif)$/i.test(this.campaign.campaign)) {
-          console.log("here");
-          /*
-          Fire the readAsDataURL method which will read the file in and
-          upon completion fire a 'load' event which we will listen to and
-          display the image in the preview.
-          */
-
-          reader.readAsDataURL(this.campaign.image);
-        }
-      }
     }
   }
 });
@@ -2572,7 +2497,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ShowCampaign",
-  props: ['campaign']
+  props: ['campaign'],
+  mounted: function mounted() {
+    var vm = this;
+    Vue.nextTick(function () {
+      console.log(vm.campaign);
+    });
+  }
 });
 
 /***/ }),
@@ -60109,7 +60040,7 @@ var render = function() {
                       _c("input", {
                         staticClass: "form-control",
                         attrs: { type: "file", name: "image" },
-                        on: { change: _vm.onChangeFile }
+                        on: { change: _vm.onFileChange }
                       })
                     ])
                   ])
@@ -60177,7 +60108,15 @@ var render = function() {
         _c("div", { staticClass: "card-body" }, [
           _c(
             "form",
-            { attrs: { action: "", enctype: "multipart/form-data" } },
+            {
+              attrs: { action: "", enctype: "multipart/form-data" },
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.updateCampaign()
+                }
+              }
+            },
             [
               _c("div", { staticClass: "row" }, [
                 _c("div", { staticClass: "col-xl-6" }, [

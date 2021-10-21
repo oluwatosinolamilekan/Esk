@@ -38,7 +38,14 @@
 <script>
 export default {
     name: "ShowCampaign",
-    props: ['campaign']
+    props: ['campaign'],
+    mounted() {
+        let vm = this;
+
+        Vue.nextTick(function () {
+            console.log(vm.campaign);
+        });
+    }
 }
 </script>
 
