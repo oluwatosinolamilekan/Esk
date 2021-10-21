@@ -22,6 +22,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('advertise')->group(function () {
     Route::get('/index', [AdvertiseCampaignController::class, 'index']);
     Route::post('/store', [AdvertiseCampaignController::class, 'store']);
-    Route::post('/show/{id}', [AdvertiseCampaignController::class, 'show']);
+    Route::get('/show/{id}', [AdvertiseCampaignController::class, 'show']);
     Route::post('/edit/{id}', [AdvertiseCampaignController::class, 'edit']);
 });

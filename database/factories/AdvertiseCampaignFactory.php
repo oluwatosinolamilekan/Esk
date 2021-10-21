@@ -29,7 +29,7 @@ class AdvertiseCampaignFactory extends Factory
             'to_date' => Carbon::now()->addDays(30),
             'total_budget' => $this->faker->numberBetween(1000,4555),
             'daily_budget' => $this->faker->numberBetween(1000,4555),
-            'image' => $this->faker->image()
+            'image' =>  'esk.jpeg'
         ];
     }
 }

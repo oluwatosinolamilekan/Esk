@@ -11,7 +11,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="" @submit.prevent="addCampaign()" enctype="multipart/form-data">
+                    <form action=""  enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-xl-6">
                                 <div class="mb-5">
@@ -86,14 +86,14 @@ export default {
         }
     },
     created() {
-        axios.get(`api/advertise/show/${this.$route.params.id}`)
+        axios.get(`http://localhost/api/advertise/show/${this.$route.params.id}`)
             .then((response) => {
                 this.campaign = response.data;
             });
     },
     methods: {
         updateCampaign(){
-            axios.patch(`api/advertise/update/${this.$route.params.id}`,this.campaign)
+            axios.patch(`http://localhost/api/advertise/update/${this.$route.params.id}`,this.campaign)
                 .then((response) => {
                     this.$router.push({ name: 'home' });
                 })

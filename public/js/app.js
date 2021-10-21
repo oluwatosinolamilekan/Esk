@@ -2324,7 +2324,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    axios.get("api/advertise/show/".concat(this.$route.params.id)).then(function (response) {
+    axios.get("http://localhost/api/advertise/show/".concat(this.$route.params.id)).then(function (response) {
       _this.campaign = response.data;
     });
   },
@@ -2332,7 +2332,7 @@ __webpack_require__.r(__webpack_exports__);
     updateCampaign: function updateCampaign() {
       var _this2 = this;
 
-      axios.patch("api/advertise/update/".concat(this.$route.params.id), this.campaign).then(function (response) {
+      axios.patch("http://localhost/api/advertise/update/".concat(this.$route.params.id), this.campaign).then(function (response) {
         _this2.$router.push({
           name: 'home'
         });
@@ -60122,15 +60122,7 @@ var render = function() {
         _c("div", { staticClass: "card-body" }, [
           _c(
             "form",
-            {
-              attrs: { action: "", enctype: "multipart/form-data" },
-              on: {
-                submit: function($event) {
-                  $event.preventDefault()
-                  return _vm.addCampaign()
-                }
-              }
-            },
+            { attrs: { action: "", enctype: "multipart/form-data" } },
             [
               _c("div", { staticClass: "row" }, [
                 _c("div", { staticClass: "col-xl-6" }, [

@@ -20,7 +20,7 @@ class CampaignResource extends JsonResource
             'from_date' => $this->from_date,
             'to_date' => $this->to_date,
             'date' => $this->to_date. " - " .$this->from_date,
-            'image' => asset('uploads/'.$this->image) ?? asset('esk.jpeg'),
+            'image' => asset('uploads/'.$this->image) ?? asset('up'),
             'total_budget' => $this->total_budget,
             'daily_budget' => $this->daily_budget,
         ];
