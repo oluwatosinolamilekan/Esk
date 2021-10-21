@@ -5,7 +5,8 @@ namespace Tests\Feature;
     use App\Models\AdvertiseCampaign;
     use Illuminate\Foundation\Testing\RefreshDatabase;
     use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
+    use Illuminate\Http\UploadedFile;
+    use Tests\TestCase;
 
 class CampaignFeatureTest extends TestCase
 {
@@ -27,11 +28,10 @@ class CampaignFeatureTest extends TestCase
     {
         $data = [
             'name'          => $this->faker->name,
-            'from'          => $this->faker->date(),
-            'to'            => $this->faker->date(),
+            'from_date'          => $this->faker->date(),
+            'to_date'            => $this->faker->date(),
             'total_budget'  => $this->faker->randomDigit,
             'daily_budget'  => $this->faker->randomDigit,
-            'creative'     =>  $this->faker->image
         ];
         $this->json('post','api/campaign/store', $data)
             ->assertStatus(201);
@@ -45,10 +45,18 @@ class CampaignFeatureTest extends TestCase
             'to_date'        => $this->faker->date(),
             'total_budget'  => $this->faker->randomDigit,
             'daily_budget'  => $this->faker->randomDigit,
+            'creatives'     => [
+                UploadedFile::fake()->image(
+                    public_path('faker/images/img1.jpg')
+                ),
+                UploadedFile::fake()->image(
+                    public_path('faker/images/img2.jpg')
+                )
+            ]
         ];
         $campaign = AdvertiseCampaign::first();
-        $this->json('patch','api/advertise/update'.$campaign->id, $data)
-            ->assertStatus(204);
+            $this->json('patch','api/advertise/update'.$campaign->id, $data)
+                ->assertStatus(204);
     }
 
 }
