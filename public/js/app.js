@@ -2132,24 +2132,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "CreateCampaign",
   data: function data() {
     return {
-      name: '',
-      to_date: '',
-      from_date: '',
-      total_budget: '',
-      daily_budget: '',
-      creative: ''
+      campaign: {
+        name: '',
+        to_date: '',
+        from_date: '',
+        total_budget: '',
+        daily_budget: '',
+        creative: ''
+      }
     };
   },
   computed: {
@@ -2159,21 +2154,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    onFileChange: function onFileChange(event) {
-      console.log(event.target.files[0]);
-      this.image = event.target.files[0];
-    },
     addCampaign: function addCampaign() {
       var _this = this;
 
-      var formData = new FormData();
-      formData.append('creative', this.creative);
-      formData.append('to_date', this.to_date);
-      formData.append('from_date', this.from_date);
-      formData.append('total_budget', this.total_budget);
-      formData.append('daily_budget', this.daily_budget);
-      formData.append('name', this.name);
-      axios.post('api/advertise/store', formData).then(function (response) {
+      axios.post('api/advertise/store', this.campaign).then(function (response) {
         _this.$router.push({
           name: 'home'
         });
@@ -59848,19 +59832,19 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.name,
-                            expression: "name"
+                            value: _vm.campaign.name,
+                            expression: "campaign.name"
                           }
                         ],
                         staticClass: "form-control",
                         attrs: { type: "text" },
-                        domProps: { value: _vm.name },
+                        domProps: { value: _vm.campaign.name },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.name = $event.target.value
+                            _vm.$set(_vm.campaign, "name", $event.target.value)
                           }
                         }
                       })
@@ -59885,19 +59869,23 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.from_date,
-                              expression: "from_date"
+                              value: _vm.campaign.from_date,
+                              expression: "campaign.from_date"
                             }
                           ],
                           staticClass: "form-control",
                           attrs: { type: "date", min: _vm.getCurrentDate },
-                          domProps: { value: _vm.from_date },
+                          domProps: { value: _vm.campaign.from_date },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.from_date = $event.target.value
+                              _vm.$set(
+                                _vm.campaign,
+                                "from_date",
+                                $event.target.value
+                              )
                             }
                           }
                         })
@@ -59911,19 +59899,23 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.to_date,
-                              expression: "to_date"
+                              value: _vm.campaign.to_date,
+                              expression: "campaign.to_date"
                             }
                           ],
                           staticClass: "form-control",
                           attrs: { type: "date", min: _vm.from_date },
-                          domProps: { value: _vm.to_date },
+                          domProps: { value: _vm.campaign.to_date },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.to_date = $event.target.value
+                              _vm.$set(
+                                _vm.campaign,
+                                "to_date",
+                                $event.target.value
+                              )
                             }
                           }
                         })
@@ -59946,19 +59938,23 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.total_budget,
-                            expression: "total_budget"
+                            value: _vm.campaign.total_budget,
+                            expression: "campaign.total_budget"
                           }
                         ],
                         staticClass: "form-control",
                         attrs: { type: "number" },
-                        domProps: { value: _vm.total_budget },
+                        domProps: { value: _vm.campaign.total_budget },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.total_budget = $event.target.value
+                            _vm.$set(
+                              _vm.campaign,
+                              "total_budget",
+                              $event.target.value
+                            )
                           }
                         }
                       })
@@ -59980,39 +59976,25 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.daily_budget,
-                            expression: "daily_budget"
+                            value: _vm.campaign.daily_budget,
+                            expression: "campaign.daily_budget"
                           }
                         ],
                         staticClass: "form-control",
                         attrs: { type: "number" },
-                        domProps: { value: _vm.daily_budget },
+                        domProps: { value: _vm.campaign.daily_budget },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.daily_budget = $event.target.value
+                            _vm.$set(
+                              _vm.campaign,
+                              "daily_budget",
+                              $event.target.value
+                            )
                           }
                         }
-                      })
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-xl-6" }, [
-                  _c("div", { staticClass: "mb-5" }, [
-                    _c(
-                      "label",
-                      { staticClass: "text-dark font-weight-medium" },
-                      [_vm._v("Image")]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "input-group mb-3" }, [
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: { type: "file", name: "image" },
-                        on: { change: _vm.onFileChange }
                       })
                     ])
                   ])

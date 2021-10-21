@@ -17,7 +17,7 @@
                                 <div class="mb-5">
                                     <label class="text-dark font-weight-medium">Name</label>
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" v-model="name" />
+                                        <input type="text" class="form-control" v-model="campaign.name" />
                                     </div>
                                 </div>
                             </div>
@@ -27,11 +27,11 @@
                                     <div class="d-flex">
                                         <div class="d-flex flex-column">
                                             <div>From:</div>
-                                            <input type="date" class="form-control" :min="getCurrentDate" v-model="from_date">
+                                            <input type="date" class="form-control" :min="getCurrentDate" v-model="campaign.from_date">
                                         </div>
                                         <div class="d-flex flex-column">
                                             <div>To:</div>
-                                            <input type="date" class="form-control" :min="from_date" v-model="to_date">
+                                            <input type="date" class="form-control" :min="from_date" v-model="campaign.to_date">
                                         </div>
                                     </div>
                                 </div>
@@ -41,7 +41,7 @@
                                 <div class="mb-5">
                                     <label class="text-dark font-weight-medium">Total Budget</label>
                                     <div class="input-group mb-3">
-                                        <input type="number" class="form-control"  v-model="total_budget">
+                                        <input type="number" class="form-control"  v-model="campaign.total_budget">
                                     </div>
                                 </div>
                             </div>
@@ -49,18 +49,11 @@
                                 <div class="mb-5">
                                     <label class="text-dark font-weight-medium">Daily Budget</label>
                                     <div class="input-group mb-3">
-                                        <input type="number" class="form-control" v-model="daily_budget">
+                                        <input type="number" class="form-control" v-model="campaign.daily_budget">
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-6">
-                                <div class="mb-5">
-                                    <label class="text-dark font-weight-medium">Image</label>
-                                    <div class="input-group mb-3">
-                                        <input type="file" name="image" class="form-control" @change="onFileChange">
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                         <button class="btn btn-primary btn-pill mr-2" type="submit">Submit</button>
                     </form>
@@ -77,12 +70,14 @@ export default {
     name: "CreateCampaign",
     data() {
         return {
-                name: '',
-                to_date: '',
-                from_date: '',
-                total_budget: '',
-                daily_budget: '',
-                creative: '',
+              campaign:{
+                  name: '',
+                  to_date: '',
+                  from_date: '',
+                  total_budget: '',
+                  daily_budget: '',
+                  creative: '',
+              }
         }
     },
     computed: {
@@ -92,19 +87,8 @@ export default {
         }
     },
     methods:{
-        onFileChange(event){
-            console.log(event.target.files[0])
-            this.image = event.target.files[0];
-        },
         addCampaign(){
-            let formData = new FormData();
-            formData.append('creative', this.creative);
-            formData.append('to_date',this.to_date)
-            formData.append('from_date',this.from_date)
-            formData.append('total_budget',this.total_budget)
-            formData.append('daily_budget',this.daily_budget)
-            formData.append('name',this.name)
-            axios.post('api/advertise/store',formData)
+            axios.post('api/advertise/store',this.campaign)
                 .then(response => {
                     this.$router.push({name:'home'})
                 })
