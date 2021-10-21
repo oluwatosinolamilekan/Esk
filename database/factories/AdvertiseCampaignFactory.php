@@ -22,7 +22,6 @@ class AdvertiseCampaignFactory extends Factory
      */
     public function definition()
     {
-        $startDate = $this->faker->dateTimeThisYear("-30 days");
         return [
             'name' => $this->faker->name(),
             'from_date' => Carbon::now(),

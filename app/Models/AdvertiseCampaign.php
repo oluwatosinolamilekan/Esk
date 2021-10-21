@@ -44,4 +44,9 @@ class AdvertiseCampaign extends Model
     {
         return number_format($value,2);
     }
+
+    public function creatives()
+    {
+        return $this->hasMany(CampaignCreative::class);
+    }
 }

@@ -6,8 +6,10 @@ namespace App\Services;
 
 use App\Helper\File;
 use App\Models\AdvertiseCampaign;
+use App\Models\CampaignCreative;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class CreateCampaign
@@ -23,6 +25,15 @@ class CreateCampaign
         $campaign->daily_budget = $data['daily_budget'];
         $campaign->creative = File::storeImage($data);
         $campaign->save();
+        $campaignCreatives = [];
+        foreach ($data->file('creatives') as $creative) {
+            $campaignCreatives[] = new CampaignCreative([
+                'img_path'    => Storage::put('campaign', $creative)
+            ]);
+        }
+
+        $campaign->creatives()->saveMany($campaignCreatives);
+
         DB::commit();
         return $campaign;
     }

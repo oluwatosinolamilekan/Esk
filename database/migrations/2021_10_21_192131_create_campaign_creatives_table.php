@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAdvertiseCampaignsTable extends Migration
+class CreateCampaignCreativesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateAdvertiseCampaignsTable extends Migration
      */
     public function up()
     {
-        Schema::create('advertise_campaigns', function (Blueprint $table) {
+        Schema::create('campaign_creatives', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->date('from_date');
-            $table->date('to_date');
-            $table->float('total_budget');
-            $table->float('daily_budget');
+            $table->unsignedBigInteger('campaign_id');
+            $table->foreign('campaign_id')->references('id')->on('advertise_campaigns');
+            $table->text('img_path');
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ class CreateAdvertiseCampaignsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('advertise_campaigns');
+        Schema::dropIfExists('campaign_creatives');
     }
 }
