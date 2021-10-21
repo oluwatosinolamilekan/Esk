@@ -28,7 +28,10 @@
                             <td>{{ campaign.total_budget }}</td>
                             <td>{{campaign.daily_budget}}</td>
                             <td>
-                                <button class="btn btn-primary">Show</button>
+                                <button type="button" class="btn btn-info btn-pill" data-toggle="modal" data-target="#exampleModal" :campaign="campaign" @click="showModal = true">
+                                    Show
+                                </button>
+                                <show-campaign v-if="showModal" @close="showModal = false" :campaign="campaign"></show-campaign>
                                 <router-link :to="{name: 'edit', params: { id: campaign.id }}" class="btn btn-secondary">Edit</router-link>
                             </td>
                         </tr>
@@ -41,11 +44,16 @@
 </template>
 
 <script>
+import ShowCampaign from "./ShowCampaign";
 export default {
     name: "ListCampaign",
+    components:{
+      ShowCampaign
+    },
     data(){
         return{
-            campaigns: []
+            campaigns: [],
+            showModal: false
         }
     },
     methods: {
