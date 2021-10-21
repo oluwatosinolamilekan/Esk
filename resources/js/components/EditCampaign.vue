@@ -3,7 +3,7 @@
         <div class="col-12">
             <div class="card card-default">
                 <div class="card-header">
-                    <h2>Create campaign</h2>
+                    <h2>Edit campaign</h2>
                     <div class="align-items-center px-3 px-md-5">
                         <router-link to="/" class="btn btn-primary">
                             Back
@@ -31,7 +31,7 @@
                                         </div>
                                         <div class="d-flex flex-column">
                                             <div>To:</div>
-                                            <input type="date" class="form-control" :min="campaign.rom_date" v-model="campaign.to_date">
+                                            <input type="date" class="form-control" :min="campaign.from_date" v-model="campaign.to_date">
                                         </div>
                                     </div>
                                 </div>
@@ -41,7 +41,7 @@
                                 <div class="mb-5">
                                     <label class="text-dark font-weight-medium">Total Budget</label>
                                     <div class="input-group mb-3">
-                                        <input type="number" class="form-control"  v-model="campaign.otal_budget">
+                                        <input type="text" class="form-control"  v-model="campaign.total_budget">
                                     </div>
                                 </div>
                             </div>
@@ -49,7 +49,7 @@
                                 <div class="mb-5">
                                     <label class="text-dark font-weight-medium">Daily Budget</label>
                                     <div class="input-group mb-3">
-                                        <input type="number" class="form-control" v-model="campaign.daily_budget">
+                                        <input type="text" class="form-control" v-model="campaign.daily_budget">
                                     </div>
                                 </div>
                             </div>
@@ -57,7 +57,15 @@
                                 <div class="mb-5">
                                     <label class="text-dark font-weight-medium">Image</label>
                                     <div class="input-group mb-3">
-<!--                                        <input type="file" name="image" class="form-control" @change="onChangeFile">-->
+                                        <input type="file" name="image" class="form-control" @change="onFileChange">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="mb-5">
+                                    <label class="text-dark font-weight-medium">Preview</label>
+                                    <div class="input-group mb-3">
+                                        <img v-bind:src="imagePreview" width="100" height="100" v-show="showPreview"/>
                                     </div>
                                 </div>
                             </div>
@@ -76,7 +84,9 @@ export default {
     name: "EditCampaign",
     data(){
         return{
-            campaign: {}
+            campaign: {},
+            imagePreview: null,
+            showPreview: false,
         }
     },
     computed: {
@@ -88,7 +98,7 @@ export default {
     created() {
         axios.get(`http://localhost/api/advertise/show/${this.$route.params.id}`)
             .then((response) => {
-                this.campaign = response.data;
+                this.campaign = response.data.data;
             });
     },
     methods: {
@@ -97,6 +107,46 @@ export default {
                 .then((response) => {
                     this.$router.push({ name: 'home' });
                 })
+        },
+        onFileChange(event){
+            /*
+            Set the local file variable to what the user has selected.
+            */
+            this.campaign.image = event.target.files[0];
+
+            /*
+            Initialize a File Reader object
+            */
+            let reader  = new FileReader();
+
+            /*
+            Add an event listener to the reader that when the file
+            has been loaded, we flag the show preview as true and set the
+            image to be what was read from the reader.
+            */
+            reader.addEventListener("load", function () {
+                this.showPreview = true;
+                this.imagePreview = reader.result;
+            }.bind(this), false);
+
+            /*
+            Check to see if the file is not empty.
+            */
+            if( this.campaign.campaign ){
+                /*
+                    Ensure the file is an image file.
+                */
+                if ( /\.(jpe?g|png|gif)$/i.test( this.campaign.campaign ) ) {
+
+                    console.log("here");
+                    /*
+                    Fire the readAsDataURL method which will read the file in and
+                    upon completion fire a 'load' event which we will listen to and
+                    display the image in the preview.
+                    */
+                    reader.readAsDataURL( this.campaign.image );
+                }
+            }
         }
     }
 }

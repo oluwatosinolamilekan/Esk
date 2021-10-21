@@ -2307,12 +2307,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "EditCampaign",
   data: function data() {
     return {
-      campaign: {}
+      campaign: {},
+      imagePreview: null,
+      showPreview: false
     };
   },
   computed: {
@@ -2325,7 +2335,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     axios.get("http://localhost/api/advertise/show/".concat(this.$route.params.id)).then(function (response) {
-      _this.campaign = response.data;
+      _this.campaign = response.data.data;
     });
   },
   methods: {
@@ -2337,6 +2347,46 @@ __webpack_require__.r(__webpack_exports__);
           name: 'home'
         });
       });
+    },
+    onFileChange: function onFileChange(event) {
+      /*
+      Set the local file variable to what the user has selected.
+      */
+      this.campaign.image = event.target.files[0];
+      /*
+      Initialize a File Reader object
+      */
+
+      var reader = new FileReader();
+      /*
+      Add an event listener to the reader that when the file
+      has been loaded, we flag the show preview as true and set the
+      image to be what was read from the reader.
+      */
+
+      reader.addEventListener("load", function () {
+        this.showPreview = true;
+        this.imagePreview = reader.result;
+      }.bind(this), false);
+      /*
+      Check to see if the file is not empty.
+      */
+
+      if (this.campaign.campaign) {
+        /*
+            Ensure the file is an image file.
+        */
+        if (/\.(jpe?g|png|gif)$/i.test(this.campaign.campaign)) {
+          console.log("here");
+          /*
+          Fire the readAsDataURL method which will read the file in and
+          upon completion fire a 'load' event which we will listen to and
+          display the image in the preview.
+          */
+
+          reader.readAsDataURL(this.campaign.image);
+        }
+      }
     }
   }
 });
@@ -2390,6 +2440,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _ShowCampaign__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ShowCampaign */ "./resources/js/components/ShowCampaign.vue");
+//
+//
 //
 //
 //
@@ -60099,7 +60151,7 @@ var render = function() {
     _c("div", { staticClass: "col-12" }, [
       _c("div", { staticClass: "card card-default" }, [
         _c("div", { staticClass: "card-header" }, [
-          _c("h2", [_vm._v("Create campaign")]),
+          _c("h2", [_vm._v("Edit campaign")]),
           _vm._v(" "),
           _c(
             "div",
@@ -60108,11 +60160,7 @@ var render = function() {
               _c(
                 "router-link",
                 { staticClass: "btn btn-primary", attrs: { to: "/" } },
-                [
-                  _vm._v(
-                    "\n                            Back\n                        "
-                  )
-                ]
+                [_vm._v("\n                        Back\n                    ")]
               )
             ],
             1
@@ -60211,7 +60259,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { type: "date", min: _vm.campaign.rom_date },
+                          attrs: { type: "date", min: _vm.campaign.from_date },
                           domProps: { value: _vm.campaign.to_date },
                           on: {
                             input: function($event) {
@@ -60245,13 +60293,13 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.campaign.otal_budget,
-                            expression: "campaign.otal_budget"
+                            value: _vm.campaign.total_budget,
+                            expression: "campaign.total_budget"
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "number" },
-                        domProps: { value: _vm.campaign.otal_budget },
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.campaign.total_budget },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
@@ -60259,7 +60307,7 @@ var render = function() {
                             }
                             _vm.$set(
                               _vm.campaign,
-                              "otal_budget",
+                              "total_budget",
                               $event.target.value
                             )
                           }
@@ -60288,7 +60336,7 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "number" },
+                        attrs: { type: "text" },
                         domProps: { value: _vm.campaign.daily_budget },
                         on: {
                           input: function($event) {
@@ -60307,7 +60355,51 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _vm._m(0)
+                _c("div", { staticClass: "col-xl-6" }, [
+                  _c("div", { staticClass: "mb-5" }, [
+                    _c(
+                      "label",
+                      { staticClass: "text-dark font-weight-medium" },
+                      [_vm._v("Image")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "input-group mb-3" }, [
+                      _c("input", {
+                        staticClass: "form-control",
+                        attrs: { type: "file", name: "image" },
+                        on: { change: _vm.onFileChange }
+                      })
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-xl-6" }, [
+                  _c("div", { staticClass: "mb-5" }, [
+                    _c(
+                      "label",
+                      { staticClass: "text-dark font-weight-medium" },
+                      [_vm._v("Preview")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "input-group mb-3" }, [
+                      _c("img", {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.showPreview,
+                            expression: "showPreview"
+                          }
+                        ],
+                        attrs: {
+                          src: _vm.imagePreview,
+                          width: "100",
+                          height: "100"
+                        }
+                      })
+                    ])
+                  ])
+                ])
               ]),
               _vm._v(" "),
               _c(
@@ -60325,22 +60417,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-xl-6" }, [
-      _c("div", { staticClass: "mb-5" }, [
-        _c("label", { staticClass: "text-dark font-weight-medium" }, [
-          _vm._v("Image")
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "input-group mb-3" })
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -60446,7 +60523,7 @@ var render = function() {
                 "tbody",
                 _vm._l(_vm.campaigns, function(campaign) {
                   return _c("tr", { key: campaign.id }, [
-                    _c("td"),
+                    _c("td", [_c("img", { attrs: { src: campaign.image } })]),
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(campaign.name))]),
                     _vm._v(" "),

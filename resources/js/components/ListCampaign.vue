@@ -22,7 +22,9 @@
                         </thead>
                         <tbody>
                         <tr  v-for="campaign in campaigns" v-bind:key="campaign.id">
-                            <td></td>
+                            <td>
+                                <img v-bind:src="campaign.image">
+                            </td>
                             <td>{{ campaign.name }}</td>
                             <td>{{ campaign.date }}</td>
                             <td>{{ campaign.total_budget }}</td>
