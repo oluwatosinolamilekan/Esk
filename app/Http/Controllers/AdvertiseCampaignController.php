@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\DisplayResponse;
 use App\Http\Requests\StoreCampaignRequest;
 use App\Http\Resources\CampaignResource;
 use App\Services\CreateCampaign;
@@ -25,7 +26,7 @@ class AdvertiseCampaignController extends Controller
             $campaign = (new CreateCampaign())->run($request);
             return new CampaignResource($campaign);
         }catch (Exception $exception){
-            return response()->json('error',$exception->getMessage());
+            return response()->json(DisplayResponse::reFailed($exception->getMessage()),500);
         }
     }
 
@@ -35,7 +36,7 @@ class AdvertiseCampaignController extends Controller
             $campaign = (new ShowCampaign())->run($id);
             return new CampaignResource($campaign);
         }catch (Exception $exception){
-            return response()->json('error',$exception->getMessage());
+            return response()->json(DisplayResponse::reFailed($exception->getMessage()),500);
         }
     }
 
@@ -45,7 +46,7 @@ class AdvertiseCampaignController extends Controller
             $campaigns = (new EditCampaign())->run($request,$id);
             return new CampaignResource($campaigns);
         }catch (Exception $exception){
-            return response()->json('error',$exception->getMessage());
+            return response()->json(DisplayResponse::reFailed($exception->getMessage()),500);
         }
     }
 
