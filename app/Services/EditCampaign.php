@@ -6,7 +6,6 @@ namespace App\Services;
 
 use App\Helper\File;
 use App\Models\AdvertiseCampaign;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
 
 class EditCampaign
@@ -16,7 +15,7 @@ class EditCampaign
         DB::beginTransaction();
         $campaign = AdvertiseCampaign::find($id);
         if(!$campaign){
-            throw new ModelNotFoundException($campaign, "The requested campaign doesn't exists");
+            throw new \Exception("The requested campaign doesn't exists");
         }
         $campaign->name = $data['name'];
         $campaign->date = $data['date'];
