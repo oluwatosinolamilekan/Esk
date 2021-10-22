@@ -1,7 +1,3 @@
-## About Project
-
-This project is developed for senior PHP developer practical test.
-
 ## Technologies
 - PHP
 - Laravel
