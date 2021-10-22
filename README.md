@@ -14,7 +14,7 @@ This project is developed for senior PHP developer practical test.
 *Please install Docker before start.
 
 - __Step 1:__ Clone the project
-  > git clone --recurse-submodules https://github.com/akandeBolaji/ssp-demo.git
+  > git clone --recurse-submodules https://github.com/oluwatosinolamilekan/esk
 - __Step 2:__ For getting into project directory run
   > cd esk
 - __Step 3:__ Now create environment file
