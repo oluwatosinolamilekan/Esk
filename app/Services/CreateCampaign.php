@@ -8,6 +8,7 @@ use App\Helper\File;
 use App\Models\AdvertiseCampaign;
 use App\Models\CampaignCreative;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -24,14 +25,12 @@ class CreateCampaign
         $campaign->total_budget = $data['total_budget'];
         $campaign->daily_budget = $data['daily_budget'];
         $campaign->save();
-        $campaignCreatives = [];
         foreach ($data->file('creatives') as $creative) {
-            $campaignCreatives[] = new CampaignCreative([
-                'img_path'    => Storage::put('campaign', $creative)
-            ]);
+            $saveCreative = new CampaignCreative;
+            $saveCreative->campaign_id = $campaign->id;
+            $saveCreative->img_path  = Storage::put('campaign', $creative);
+            $saveCreative->save();
         }
-
-        $campaign->creatives()->saveMany($campaignCreatives);
 
         DB::commit();
         return $campaign;

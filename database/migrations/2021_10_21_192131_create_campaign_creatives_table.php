@@ -15,8 +15,7 @@ class CreateCampaignCreativesTable extends Migration
     {
         Schema::create('campaign_creatives', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('campaign_id');
-            $table->foreign('campaign_id')->references('id')->on('advertise_campaigns');
+            $table->integer('campaign_id');
             $table->text('img_path');
             $table->timestamps();
         });
