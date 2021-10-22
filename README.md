@@ -55,7 +55,7 @@
   > php artisan migrate:fresh --seed
     - __Step 19:__ Run migration with seed
   > npm install && npm run watch
-- __Step 19:__ Now browse http://localhost/ for application
+- __Step 19:__ Now use http://localhost/ for application
 - __Step 20:__ For system test
   > php artisan test
 
