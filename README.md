@@ -37,7 +37,7 @@ This project is developed for senior PHP developer practical test.
   > nano .env
 
         MYSQL_VERSION=latest
-        MYSQL_DATABASE=ssp_demo
+        MYSQL_DATABASE=default
         MYSQL_USER=default
         MYSQL_PASSWORD=root
         MYSQL_PORT=3306
